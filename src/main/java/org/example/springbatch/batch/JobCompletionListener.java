@@ -1,4 +1,4 @@
-package org.example.springbatch;
+package org.example.springbatch.batch;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -12,22 +12,30 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class JobCompletionNotificationListener implements JobExecutionListener {
+public class JobCompletionListener implements JobExecutionListener {
 
-    private static final Logger log = LoggerFactory.getLogger(JobCompletionNotificationListener.class);
+    private static final Logger log = LoggerFactory.getLogger(JobCompletionListener.class);
 
     private final JdbcTemplate jdbcTemplate;
 
     @Override
     public void afterJob(JobExecution jobExecution) {
         if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
-            log.info("!!! Job Finished! Time to verify the results");
-
-            jdbcTemplate
-                    .query("SELECT first_name, last_name FROM people", new DataClassRowMapper<>(Person.class))
-                    .forEach(person -> log.info("Found <{{}}> in the database.", person));
+            log.info("!!! Job Completed! Time to verify the results");
         } else {
             log.warn("Job NOT Completed... Status: {}", jobExecution.getStatus());
+        }
+
+        try {
+            jdbcTemplate
+                    .query("SELECT first_name, last_namee FROM people", new DataClassRowMapper<>(Person.class))
+                    .forEach(person ->
+                            log.info("Found <{{}}> in the database.", person)
+                    );
+
+            jdbcTemplate.execute("DELETE FROM people");
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
     }
 }

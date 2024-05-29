@@ -29,7 +29,7 @@ dependencies {
     runtimeOnly 'org.hsqldb:hsqldb'
 //    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

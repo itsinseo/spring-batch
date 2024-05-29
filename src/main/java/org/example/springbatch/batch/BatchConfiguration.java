@@ -1,4 +1,4 @@
-package org.example.springbatch;
+package org.example.springbatch.batch;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -46,9 +46,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Job importUserJob(JobRepository jobRepository, Step step1, JobCompletionNotificationListener jobCompletionNotificationListener) {
+    public Job importUserJob(JobRepository jobRepository, Step step1, JobCompletionListener jobCompletionListener) {
         return new JobBuilder("importUserJob", jobRepository)
-                .listener(jobCompletionNotificationListener)
+                .listener(jobCompletionListener)
                 .start(step1)
                 .build();
     }
