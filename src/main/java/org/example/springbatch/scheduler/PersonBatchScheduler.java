@@ -15,7 +15,8 @@ public class PersonBatchScheduler {
     private final Job job;
     private final JobLauncher jobLauncher;
 
-    @Scheduled(cron = "0/10 * * * * ?")
+    // TODO: exception handling
+    @Scheduled(cron = "0 0/1 * * * ?")
     public void runJob() throws Exception {
         JobParameters jobParameters = new JobParametersBuilder()
                 .addJobParameter("Current Time", System.currentTimeMillis(), Long.class)
