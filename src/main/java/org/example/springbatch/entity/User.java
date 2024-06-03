@@ -17,16 +17,18 @@ public class User {
     private String firstName;
     private String lastName;
     private Date createdDate;
+    private String code;
 
     @Builder
-    public User(String firstName, String lastName, Date createdDate) {
+    public User(String firstName, String lastName, Date createdDate, String code) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.createdDate = createdDate;
+        this.code = code;
     }
 
     @Override
     public String toString() {
-        return String.format("User[%s %s %s]", firstName, lastName, createdDate);
+        return String.format("User[%s %s %s %s]", firstName, lastName, createdDate, code);
     }
 }
